@@ -4,13 +4,13 @@ import java.awt.*;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Game {
+public class GameSnek {
     static int[][] dir={{0,1} /*right*/ ,{1,0} /*down*/ ,{-1,0} /*up*/,{0,-1} /*left*/}; // {y,x}
     static Snake head;
     static Snake tail;
     static int[][] board=new int[55][75];
     static boolean start=true;
-    static Board displayBoard = new Board();
+    static SnekBoard displayBoard = new SnekBoard();
 
     // make food
     static void startGame() {
@@ -28,7 +28,7 @@ public class Game {
 
         // move per 0.1 sec when in bound
         Timer timer = new Timer();
-        timer.schedule(new Test(), 0, 75);
+        timer.schedule(new Movement(), 0, 75);
 
         if (head.x < 0 && head.x >= 55 && head.y >= 75 && head.y < 0 && Snake.size != 55 * 75) {
             displayBoard.displayGameOver();
@@ -45,7 +45,7 @@ public class Game {
 
     }
     static int count=0;
-    static class Test extends TimerTask {
+    static class Movement extends TimerTask {
 
         public void run() {
             head.move(head, 27,37);

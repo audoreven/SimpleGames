@@ -20,19 +20,19 @@ public class Snake {
 
     void add() {
         if (size==1) {
-            Game.tail = new Snake(null, Game.head,
-                    Game.head.x + Game.dir[3 - Game.head.dir][0],
-                    Game.head.y + Game.dir[3 - Game.head.dir][1],
-                    Game.head.dir, false);
-            Game.head.behind=Game.tail;
+            GameSnek.tail = new Snake(null, GameSnek.head,
+                    GameSnek.head.x + GameSnek.dir[3 - GameSnek.head.dir][0],
+                    GameSnek.head.y + GameSnek.dir[3 - GameSnek.head.dir][1],
+                    GameSnek.head.dir, false);
+            GameSnek.head.behind= GameSnek.tail;
         } else {
-            Snake newT = Game.tail;
-            Game.tail = new Snake(null, newT, newT.x, newT.y, newT.dir, false);
-            newT.behind=Game.tail;
-            System.out.println(Game.tail);
+            Snake newT = GameSnek.tail;
+            GameSnek.tail = new Snake(null, newT, newT.x, newT.y, newT.dir, false);
+            newT.behind= GameSnek.tail;
+            System.out.println(GameSnek.tail);
         }
-        Game.board[Game.tail.x][Game.tail.y]=1;
-        Game.displayBoard.grid[Game.tail.x][Game.tail.y].setBackground(Color.BLACK);
+        GameSnek.board[GameSnek.tail.x][GameSnek.tail.y]=1;
+        GameSnek.displayBoard.grid[GameSnek.tail.x][GameSnek.tail.y].setBackground(Color.BLACK);
         size++;
         // REWRITE
         System.out.println("+1");
@@ -44,56 +44,56 @@ public class Snake {
     void move(Snake s, int px, int py) {
         if (size==1) { // is only node
             // move to new location
-            Game.displayBoard.grid[s.x][s.y].setBackground(Color.WHITE);
-            Game.board[s.x][s.y]=0;
-            s.x+=Game.dir[dir][0];
-            s.y+=Game.dir[dir][1];
+            GameSnek.displayBoard.grid[s.x][s.y].setBackground(Color.WHITE);
+            GameSnek.board[s.x][s.y]=0;
+            s.x+= GameSnek.dir[dir][0];
+            s.y+= GameSnek.dir[dir][1];
             // check if obstacle
-            if (Game.board[s.x][s.y]==-1) {
+            if (GameSnek.board[s.x][s.y]==-1) {
                 add();
-                Game.displayBoard.createFood();
-            } else if (Game.board[s.x][s.y]==1) {
+                GameSnek.displayBoard.createFood();
+            } else if (GameSnek.board[s.x][s.y]==1) {
                 die();
             }
             if (s.x >= 0 && s.x < 55 && s.y < 75 && s.y >= 0) {
-                Game.displayBoard.grid[s.x][s.y].setBackground(Color.BLACK);
-                Game.board[s.x][s.y]=1;
+                GameSnek.displayBoard.grid[s.x][s.y].setBackground(Color.BLACK);
+                GameSnek.board[s.x][s.y]=1;
             }
 
-        } else if (Game.head==s) {
+        } else if (GameSnek.head==s) {
             // move to new location
             px=s.x; py=s.y;
-            s.x+=Game.dir[dir][0];
-            s.y+=Game.dir[dir][1];
+            s.x+= GameSnek.dir[dir][0];
+            s.y+= GameSnek.dir[dir][1];
             // check if obstacle
-            if (Game.board[s.x][s.y]==-1) {
+            if (GameSnek.board[s.x][s.y]==-1) {
                 add();
-                Game.displayBoard.createFood();
-            } else if (Game.board[s.x][s.y]==1) {
+                GameSnek.displayBoard.createFood();
+            } else if (GameSnek.board[s.x][s.y]==1) {
                 die();
             }
             // change bg
-            Game.displayBoard.grid[s.x][s.y].setBackground(Color.BLACK);
-            Game.board[s.x][s.y]=1;
+            GameSnek.displayBoard.grid[s.x][s.y].setBackground(Color.BLACK);
+            GameSnek.board[s.x][s.y]=1;
             move(s.behind, px, py);
         } else {
             // follow the one before
             int newpx=s.x; int newpy=s.y;
             s.x=px;
             s.y=py;
-            Game.displayBoard.grid[s.x][s.y].setBackground(Color.BLACK);
-            Game.board[s.x][s.y]=1;
-            if (Game.tail==s) {
-                Game.displayBoard.grid[newpx][newpy].setBackground(Color.WHITE);
-                Game.board[newpx][newpy]=0;
+            GameSnek.displayBoard.grid[s.x][s.y].setBackground(Color.BLACK);
+            GameSnek.board[s.x][s.y]=1;
+            if (GameSnek.tail==s) {
+                GameSnek.displayBoard.grid[newpx][newpy].setBackground(Color.WHITE);
+                GameSnek.board[newpx][newpy]=0;
             } else {
                 move(s.behind, newpx, newpy);
             }
         }
     }
     void die() {
-        Game.displayBoard.displayGameOver();
-        Game.start=false;
+        GameSnek.displayBoard.displayGameOver();
+        GameSnek.start=false;
     }
 
 }

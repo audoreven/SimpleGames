@@ -5,13 +5,14 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.lang.*;
 
-public class Board /*extends JPanel */ implements KeyListener{
+public class SnekBoard /*extends JPanel */ implements KeyListener{
     JPanel[][] grid=new JPanel[55][75];
     JFrame game= new JFrame("Snek");
     JPanel bg=new JPanel();
     JPanel board=new JPanel();
     Popup gmrOvrPopup;
     Popup gmWonPopup;
+    //GameSnek game=new GameSnek();
 
     void startGame(){
         // create bg
@@ -57,7 +58,7 @@ public class Board /*extends JPanel */ implements KeyListener{
         game.setLayout(null);
         game.setVisible(true);
 
-        game.addKeyListener(new Board());
+        game.addKeyListener(new SnekBoard());
 
     }
 
@@ -65,9 +66,9 @@ public class Board /*extends JPanel */ implements KeyListener{
     void createFood() {
         double randx = Math.random()*53+1;
         double randy = Math.random()*73+1;
-        if (Game.board[(int) randx][(int) randy] == 0) {
-            this.grid[(int) randx][(int) randy].setBackground(Color.BLUE);
-            Game.board[(int) randx][(int) randy] = -1;
+        if (GameSnek.board[(int) randx][(int) randy] == 0) {
+            this.grid[(int) randx][(int) randy].setBackground(Color.RED);
+            GameSnek.board[(int) randx][(int) randy] = -1;
         } else {
             createFood();
         }
@@ -78,35 +79,35 @@ public class Board /*extends JPanel */ implements KeyListener{
         int keyCode = e.getKeyCode();
         switch( keyCode ) {
             case KeyEvent.VK_UP:
-                if (Game.head.dir!=1 || Snake.size==1) {
+                if (GameSnek.head.dir!=1 || Snake.size==1) {
                     //System.out.println("UP");
-                    Game.head.dir = 2;
+                    GameSnek.head.dir = 2;
                 }
                 break;
             case KeyEvent.VK_DOWN:
-                if (Game.head.dir!=2 || Snake.size==1) {
+                if (GameSnek.head.dir!=2 || Snake.size==1) {
                     //System.out.println("DOWN");
-                    Game.head.dir = 1;
+                    GameSnek.head.dir = 1;
                 }
                 break;
             case KeyEvent.VK_LEFT:
-                if (Game.head.dir!=0 || Snake.size==1) {
+                if (GameSnek.head.dir!=0 || Snake.size==1) {
                     //System.out.println("LEFT");
-                    Game.head.dir = 3;
+                    GameSnek.head.dir = 3;
                 }
                 break;
             case KeyEvent.VK_RIGHT:
-                if (Game.head.dir!=3 || Snake.size==1) {
+                if (GameSnek.head.dir!=3 || Snake.size==1) {
                     //System.out.println("RIGHT");
-                    Game.head.dir = 0;
+                    GameSnek.head.dir = 0;
                 }
                 break;
             case KeyEvent.VK_ENTER:
-                // figure out how to restart again ig
-                if (!Game.start) {
+                // figure out how to restart ig
+                if (!GameSnek.start) {
                     System.out.println("helloooo restartttt");
-                    Game.start = true;
-                    Game.startGame();
+                    GameSnek.start = true;
+                    GameSnek.startGame();
                 }
                 break;
         }
